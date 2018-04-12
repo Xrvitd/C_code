@@ -1,0 +1,83 @@
+#include<cstdio>
+#include<iostream>
+#include<algorithm>
+#include<cstring>
+#include<cmath>
+#include<vector>
+#include<queue>
+#include<map>
+#include<set>
+#include<stack>
+#include<cstdlib>
+#include<string>
+#include<bitset>
+#include<iomanip>
+#include<deque>
+#define INF 1000000000
+#define fi first
+#define se second
+#define N 100005
+#define P 1000000007
+#define debug(x) cerr<<#x<<"="<<x<<endl
+#define MP(x,y) make_pair(x,y)
+using namespace std;
+int n,m,k,h,t;
+struct re
+{
+	int step,sum;
+}q[1000001];
+int a[40];
+bool v[3000];
+inline int get_num()
+{
+int num = 0;
+char c;
+bool flag = false;
+while ((c = getchar()) == ' ' || c == '\n' || c == '\r');
+if (c == '-') flag = true;
+else num = c - '0';
+while (isdigit(c = getchar()))
+num = num * 10 + c - '0';
+return (flag ? -1 : 1) * num;
+}
+int main()
+{
+    cin>>k;
+	while(k--)
+	{
+		memset(v,0,sizeof(v));
+		cin>>n>>m;
+		bool ll=0;
+		for(int i=1;i<=n;i++)
+		{
+			cin>>a[i];
+		}
+		h=0;t=1;
+		q[1].step=0;
+		q[1].sum=0;
+		while(h<=t)
+		{
+			h++;
+			for(int i=1;i<=n;i++)
+			{
+				int ts=q[h].sum+a[i];
+				if(!v[ts])
+				{
+					t++;
+					v[ts]=1;
+					q[t].step=q[h].step+1;
+					q[t].sum=ts;
+					if(ts==m)
+					{
+						cout<<q[t].step<<"\n";
+						ll=1;
+						break;
+					}
+				}
+			}
+			if(ll) break;
+		}
+		if(!ll) cout<<"-1\n";
+	} 
+}
+
